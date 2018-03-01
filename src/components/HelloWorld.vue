@@ -37,7 +37,8 @@ export default {
     listen() {
       socket.on('jack', data =>{
           console.log(data);
-          this.text.push(data.userName + ':' + data.word);
+          let json = JSON.parse(data);
+          this.text.push(json.userName + ':' + json.word);
       })
     },
     submit() {
@@ -45,7 +46,7 @@ export default {
         userName: this.userName,
         word: this.word
       }
-      socket.emit('jack',data);
+      socket.emit('jack',JSON.stringify(data));
     }
   }
 }
