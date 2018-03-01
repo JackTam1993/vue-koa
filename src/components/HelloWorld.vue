@@ -14,7 +14,7 @@
 <script>
 import io from 'socket.io-client';
 
-const socket = io('http://35.201.218.18/:1337');
+const socket = io('http://35.201.218.18:1337');
 
 export default {
   name: 'HelloWorld',
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     init() {
-      socket.connect('http://localhost:1337');
+      socket.connect('http://35.201.218.18:1337');
     },
     listen() {
       socket.on('jack', data =>{
