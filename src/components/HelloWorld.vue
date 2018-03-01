@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
+    <input type="text" v-model="userName">
     <!--<ul class="bg-bubbles">-->
       <!--<li v-for="i in 10" :key="i"></li>-->
     <!--</ul>-->
-    <span v-for="i in text" v-bind:key="i" style="display:block">{{i}}</span>
+    <span v-for="i in text" v-bind:key="i.index" style="display:block">{{i}}</span>
     <input type="text" v-model="word">
     <button @click="submit()">submit</button>
   </div>
@@ -20,8 +21,9 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      text:　['init'],
-      word: '123'
+      text:　['default:init'],
+      word: '123',
+      userName: ''
     }
   },
   mounted() {
@@ -31,16 +33,19 @@ export default {
   methods: {
     init() {
       socket.connect('http://localhost:1337');
-      console.log('inited')
     },
     listen() {
       socket.on('jack', data =>{
           console.log(data);
-          this.text.push(data);
+          this.text.push(data.userName + ':' + data.word);
       })
     },
     submit() {
-      socket.emit('jack',this.word);
+      let data = {
+        userName: this.userName,
+        word: this.word
+      }
+      socket.emit('jack',data);
     }
   }
 }
