@@ -1,12 +1,14 @@
 <template>
   <div class="hello">
-    <input type="text" v-model="userName">
-    <!--<ul class="bg-bubbles">-->
-      <!--<li v-for="i in 10" :key="i"></li>-->
-    <!--</ul>-->
-    <span v-for="i in text" v-bind:key="i.index" style="display:block">{{i}}</span>
-    <input type="text" v-model="word">
-    <button @click="submit()">submit</button>
+    <ul class="bg-bubbles">
+      <li v-for="i in 10" :key="i"></li>
+    </ul>
+    <div class="functional">
+      <span v-for="i in text" v-bind:key="i.index" style="display:block">{{i}}</span>
+      <input type="text" v-model="userName" class="user-name">
+      <input type="text" v-model="word">
+      <button @click="submit()" @keyup.enter="submit()">submit</button>
+    </div>
   </div>
 
 </template>
@@ -55,6 +57,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
   .bg-bubbles {
+    z-index: 0;
     position: absolute;
     background: linear-gradient(to bottom right, #50A3A2, #53E3A6);
   // 使气泡背景充满整个屏幕；
@@ -62,6 +65,8 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    margin: 0 !important;
+    overflow: hidden;
   li {
     position: absolute;
   // bottom 的设置是为了营造出气泡从页面底部冒出的效果；
@@ -165,6 +170,18 @@ export default {
   }
   }
   .hello {
-    background: linear-gradient(to bottom right, #50A3A2, #53E3A6);
+    display: flex;
+  }
+  user-name {
+
+  }
+  .functional {
+    position: relative;
+    z-index: 1000;
+    margin: auto;
+    height:150px;
+    width:300px;
+    display: flex;
+    flex-direction: column;
   }
 </style>
